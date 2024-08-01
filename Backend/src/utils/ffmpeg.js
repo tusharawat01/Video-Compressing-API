@@ -21,13 +21,12 @@ const compressVideo = async (inputPath, outputPath) => {
             const ffmpegCommand = ffmpeg(inputPath)
                 .output(outputPath)
                 .videoCodec('libx264')
-                // .videoCodec('libvpx-vp9')
-                .videoBitrate('1000k') // Higher bitrate for better quality
+                .videoBitrate('2000k') // Higher bitrate for better quality
                 .fps(30)
-                .size('1280x1080') // Adjust resolution if needed
+                .size('1920x1080') // 1080p resolution
                 .addOptions([
-                    '-crf 24', // Lower value for better quality
-                    // '-crf 40', // Lower value for better quality dor vp9 Codec
+                    '-crf 28', // Lower CRF for high quality
+                    '-preset veryslow', // Slow encoding for better quality
                     '-movflags +faststart',
                     '-max_muxing_queue_size 1024', // Increase buffer size
                 ])
@@ -60,4 +59,3 @@ const compressVideo = async (inputPath, outputPath) => {
 };
 
 export { compressVideo };
-
